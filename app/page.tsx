@@ -1,9 +1,7 @@
-import Image from 'next/image';
-
 export default function Home() {
   return (
-    <main className='flex flex-col h-full justify-center items-center gap-3'>
-      <div>
+    <main className='flex flex-col h-full justify-around items-center gap-6 mt-10'>
+      <div className=''>
         <h1>Health App</h1>
         <p>Welcome, open your hearth and write down your thoughts</p>
       </div>
@@ -14,10 +12,11 @@ export default function Home() {
               Username
             </label>
             <input
-              type='text'
+              type='email'
               id='username'
               name='username'
               placeholder='John@doe.com'
+              className='text-black p-1 focus:outline-none align-middle'
             />
           </div>
           <div>
@@ -28,17 +27,23 @@ export default function Home() {
               type='text'
               id='password'
               name='password'
-              placeholder='*******'
+              placeholder='Password'
+              className='text-black p-1 focus:outline-none align-middle'
             />
           </div>
           <div className='flex gap-3'>
             <button
               type='button'
-              className='border-green-600 border rounded p-1 px-3'
+              className='border-green-600 border rounded p-1 px-3 hover:bg-green-600 hover:text-stone-50'
             >
               Sign in
             </button>
-            <button type='button'>Sign up</button>
+            <button
+              type='button'
+              className='border-green-600 border rounded p-1 px-3 hover:bg-green-600 hover:text-stone-50'
+            >
+              Sign up
+            </button>
           </div>
         </form>
       </div>
