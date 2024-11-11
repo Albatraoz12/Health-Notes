@@ -3,8 +3,8 @@ import React from 'react';
 
 const Signup = () => {
   return (
-    <main className='flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900'>
-      <form className='bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md flex flex-col gap-6'>
+    <main className='flex justify-center items-center mt-10 bg-gray-100 dark:bg-gray-900'>
+      <form className='bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md max-w-md flex flex-col gap-6 w-[90%] md:w-full '>
         <h2 className='text-2xl font-semibold text-center text-gray-700 dark:text-gray-100'>
           Sign Up
         </h2>
