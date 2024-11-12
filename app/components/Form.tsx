@@ -3,8 +3,35 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 
 const Form = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    email: email,
+    password: password,
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const signIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const response = await fetch('/api/user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
+      alert('Credential good!');
+    } else {
+      alert('Credential bad!');
+    }
+  };
 
   return (
     <main className='flex items-center bg-gray-100 dark:bg-gray-900'>
@@ -15,18 +42,19 @@ const Form = () => {
 
         <div className='flex flex-col'>
           <label
-            htmlFor='username'
+            htmlFor='email'
             className='text-sm font-medium text-gray-600 dark:text-gray-300 px-1'
           >
-            Username
+            Email
           </label>
           <input
             type='email'
-            id='username'
-            name='username'
+            id='email'
+            name='email'
             placeholder='John@doe.com'
-            onChange={(e) => setUsername(e.target.value)}
-            value={username}
+            onChange={handleChange}
+            // onChange={(e) => setUsername(e.target.value)}
+            value={formData.email}
             className='mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:placeholder-gray-400'
           />
         </div>
@@ -43,8 +71,9 @@ const Form = () => {
             id='password'
             name='password'
             placeholder='Password'
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
+            // onChange={(e) => setPassword(e.target.value)}
+            onChange={handleChange}
+            value={formData.password}
             className='mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:placeholder-gray-400'
           />
         </div>
@@ -53,6 +82,7 @@ const Form = () => {
           <button
             type='button'
             className='p-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500'
+            onClick={signIn}
           >
             Sign in
           </button>
