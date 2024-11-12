@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { redirect } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
 const Form = () => {
   const [email, setEmail] = useState('');
@@ -16,28 +17,29 @@ const Form = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const signIn = async (e: React.FormEvent) => {
+  const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const response = await fetch('/api/user', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
+    const result = await signIn('credentials', {
+      redirect: false, // Set to false to handle redirection manually
+      email: formData.email,
+      password: formData.password,
     });
 
-    if (response.ok) {
-      // Redirect only on successful login
+    if (result?.ok) {
+      // Redirect to dashboard on successful login
       redirect('/dashboard');
     } else {
-      alert('Incorrect credentials. Please try again.');
+      // Handle login error (e.g., display error message)
+      alert('Login failed');
     }
   };
 
   return (
     <main className='flex items-center bg-gray-100 dark:bg-gray-900'>
-      <form className='bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-sm flex flex-col gap-6'>
+      <form
+        className='bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-sm flex flex-col gap-6'
+        onSubmit={handleSignIn}
+      >
         <h2 className='text-2xl font-semibold text-center text-gray-700 dark:text-gray-100'>
           Sign In
         </h2>
@@ -82,12 +84,18 @@ const Form = () => {
 
         <div className='flex gap-3 justify-center'>
           <button
+            type='submit'
+            className='p-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500'
+          >
+            Sign in
+          </button>
+          {/* <button
             type='button'
             className='p-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500'
             onClick={signIn}
           >
             Sign in
-          </button>
+          </button> */}
           <Link
             href='/signup'
             className='p-2 px-4 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-green-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-500'
