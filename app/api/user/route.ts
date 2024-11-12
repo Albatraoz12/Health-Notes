@@ -31,7 +31,7 @@ export async function POST(request: Request) {
 
     if (!email || !password) {
       return NextResponse.json(
-        { success: false, error: 'Username or password cannot be empty' },
+        { success: false, error: 'Email or password cannot be empty' },
         { status: 400 }
       );
     }
@@ -56,13 +56,17 @@ export async function POST(request: Request) {
       );
     }
 
+    // Set token as a cookie in the response
     const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, {
       expiresIn: '1h',
     });
-
     return NextResponse.json(
       { success: true, message: 'Login successful' },
-      { headers: { 'Set-Cookie': `token=${token}; Path=/; HttpOnly; Secure` } }
+      {
+        headers: {
+          'Set-Cookie': `token=${token}; Path=/; HttpOnly; Secure; SameSite=Strict`,
+        },
+      }
     );
   } catch (error) {
     console.error('Error during authentication:', error);

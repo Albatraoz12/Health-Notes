@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { redirect } from 'next/navigation';
 
 const Form = () => {
   const [email, setEmail] = useState('');
@@ -27,9 +28,10 @@ const Form = () => {
     });
 
     if (response.ok) {
-      alert('Credential good!');
+      // Redirect only on successful login
+      redirect('/dashboard');
     } else {
-      alert('Credential bad!');
+      alert('Incorrect credentials. Please try again.');
     }
   };
 
