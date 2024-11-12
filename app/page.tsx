@@ -1,6 +1,15 @@
 import Form from './components/Form';
+import { getServerSession } from 'next-auth';
+import { authOptions } from './api/auth/[...nextauth]/route';
+import { redirect } from 'next/navigation';
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+
+  if (session) {
+    redirect('/dashboard');
+  }
+
   return (
     <main className='flex flex-col items-center bg-gray-100 dark:bg-gray-900 p-4'>
       <div className='text-center mt-12 mb-8'>

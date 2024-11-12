@@ -8,7 +8,7 @@ const MONGODB_URI = process.env.MONGODB_URI as string;
 
 const client = new MongoClient(MONGODB_URI);
 
-const authOptions: AuthOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
