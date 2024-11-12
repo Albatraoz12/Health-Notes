@@ -60,11 +60,10 @@ export async function POST(request: Request) {
       expiresIn: '1h',
     });
 
-    return NextResponse.json({
-      success: true,
-      message: 'Login successful',
-      token,
-    });
+    return NextResponse.json(
+      { success: true, message: 'Login successful' },
+      { headers: { 'Set-Cookie': `token=${token}; Path=/; HttpOnly; Secure` } }
+    );
   } catch (error) {
     console.error('Error during authentication:', error);
     return NextResponse.json(
