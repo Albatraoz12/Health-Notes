@@ -49,14 +49,33 @@ const Page = () => {
   if (status === 'authenticated') {
     return (
       <main>
-        <div>Welcome to Dashboard Page</div>
         {userData && (
           <div>
-            <h2>User Details:</h2>
-            <p>Email: {userData.firstName}</p>
+            <nav className='flex justify-between h-[80px] px-10 items-center text-xl font-semibold'>
+              <div>
+                <h1>Hello {userData.firstName}</h1>
+              </div>
+              <SignOut />
+            </nav>
           </div>
         )}
-        <SignOut />
+        <div className='flex justify-center text-2xl'>
+          <h2>Welcome to Dashboard Page</h2>
+        </div>
+        <div className='flex justify-center items-center gap-3 my-10 py-5'>
+          <button
+            type='button'
+            className='p-2 px-4 bg-gray-200 dark:bg-green-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-green-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-500'
+          >
+            Create Journal
+          </button>
+          <button
+            type='button'
+            className='p-2 px-4 bg-gray-200 dark:bg-green-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-green-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-500'
+          >
+            View Journals
+          </button>
+        </div>
       </main>
     );
   }
