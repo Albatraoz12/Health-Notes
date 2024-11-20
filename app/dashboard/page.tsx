@@ -4,11 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import SignOut from '../components/SignOut';
+import JournalForm from '../components/JournalForm';
 
 const Page = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [userData, setUserData] = useState<any>(null);
+  const [openJournal, setOpenJournal] = useState<boolean>(false);
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -66,8 +68,11 @@ const Page = () => {
           <button
             type='button'
             className='p-2 px-4 bg-gray-200 dark:bg-green-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-green-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-500'
+            onClick={() => {
+              setOpenJournal(!openJournal);
+            }}
           >
-            Create Journal
+            {openJournal ? 'Close Journal' : 'Create Journal'}
           </button>
           <button
             type='button'
@@ -76,6 +81,11 @@ const Page = () => {
             View Journals
           </button>
         </div>
+        {openJournal && (
+          <div>
+            <JournalForm />
+          </div>
+        )}
       </main>
     );
   }
