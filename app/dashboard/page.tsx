@@ -50,10 +50,10 @@ const Page = () => {
 
   if (status === 'authenticated') {
     return (
-      <main>
+      <main className='w-[90%] mx-auto'>
         {userData && (
           <div>
-            <nav className='flex justify-between h-[80px] px-10 items-center text-xl font-semibold'>
+            <nav className='flex justify-between h-[80px] md:px-10 items-center text-xl font-semibold'>
               <div>
                 <h1>Hello {userData.firstName}</h1>
               </div>
